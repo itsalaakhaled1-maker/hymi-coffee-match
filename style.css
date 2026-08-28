@@ -750,8 +750,13 @@ body {
 /* Capsule Showcase */
 .capsule-showcase {
     position: relative;
-    margin: 20px 0;
-    padding: 20px;
+    margin: 10px 0 25px;
+    padding: 30px 20px;
+    min-height: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .capsule-glow {
@@ -759,24 +764,28 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 250px;
-    height: 250px;
-    background: radial-gradient(circle, var(--shadow-gold) 0%, transparent 70%);
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, var(--shadow-gold) 0%, transparent 65%);
     border-radius: 50%;
     animation: glow-breathe 3s ease-in-out infinite;
+    pointer-events: none;
 }
 
 @keyframes glow-breathe {
     0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
-    50% { transform: translate(-50%, -50%) scale(1.3); opacity: 0.8; }
+    50% { transform: translate(-50%, -50%) scale(1.25); opacity: 0.8; }
 }
 
 .capsule-image-wrapper {
     position: relative;
-    width: 180px;
-    height: 180px;
+    width: 280px;
+    height: 280px;
     margin: 0 auto;
     animation: capsule-reveal 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s both;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 @keyframes capsule-reveal {
@@ -789,39 +798,42 @@ body {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    filter: drop-shadow(0 15px 30px rgba(0,0,0,0.4));
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
     transition: transform 0.3s ease;
+    max-width: 280px;
+    max-height: 280px;
 }
 
 .capsule-image:hover {
-    transform: scale(1.05) rotate(3deg);
+    transform: scale(1.08) rotate(3deg);
 }
 
 .capsule-image-fallback {
-    width: 100%;
-    height: 100%;
+    width: 280px;
+    height: 280px;
     display: flex;
     align-items: center;
     justify-content: center;
     background: linear-gradient(135deg, rgba(201, 169, 110, 0.2), rgba(212, 165, 116, 0.1));
-    border-radius: 30px;
+    border-radius: 40px;
     border: 2px solid rgba(201, 169, 110, 0.3);
 }
 
 .fallback-icon {
-    font-size: 5rem;
+    font-size: 8rem;
     filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
 }
 
 .capsule-name-wrapper {
-    margin-top: 15px;
+    margin-top: 20px;
+    text-align: center;
 }
 
 .capsule-name {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     font-weight: 900;
     color: var(--gold);
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .capsule-tags {
@@ -1090,8 +1102,22 @@ body {
     }
 
     .capsule-image-wrapper {
-        width: 150px;
-        height: 150px;
+        width: 220px;
+        height: 220px;
+    }
+
+    .capsule-image, .capsule-image-fallback {
+        max-width: 220px;
+        max-height: 220px;
+    }
+
+    .capsule-glow {
+        width: 280px;
+        height: 280px;
+    }
+
+    .fallback-icon {
+        font-size: 6rem;
     }
 
     .stats-grid {
@@ -1127,6 +1153,21 @@ body {
 
     .option-emoji {
         font-size: 1.5rem;
+    }
+
+    .capsule-image-wrapper {
+        width: 200px;
+        height: 200px;
+    }
+
+    .capsule-image, .capsule-image-fallback {
+        max-width: 200px;
+        max-height: 200px;
+    }
+
+    .capsule-glow {
+        width: 250px;
+        height: 250px;
     }
 }
 
