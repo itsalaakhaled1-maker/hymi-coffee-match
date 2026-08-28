@@ -148,7 +148,7 @@ body {
     width: 140px;
     height: 140px;
     background: linear-gradient(135deg, var(--gold) 0%, var(--accent) 50%, var(--gold) 100%);
-    border-radius: 50%;
+    border-radius: 50%; /* ← موجود بالفعل */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -157,20 +157,17 @@ body {
         inset 0 -3px 10px rgba(0,0,0,0.2),
         inset 0 3px 10px rgba(255,255,255,0.3);
     animation: logo-float 4s ease-in-out infinite;
-    overflow: hidden;
-}
-
-@keyframes logo-float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-12px); }
+    overflow: hidden; /* ← هذا يخفي الزوايا المربعة */
 }
 
 .logo-img {
-    width: 80%;
-    height: 80%;
-    object-fit: contain;
+    width: 85%; /* ← اكبر شوي */
+    height: 85%;
+    object-fit: cover; /* ← بدل contain */
+    border-radius: 50%; /* ← يخلي الصورة نفسها دائرية */
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
 }
+
 
 .logo-fallback {
     display: flex;
