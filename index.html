@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#1A0F0A">
+    <meta name="description" content="HYMI - اكتشف قهوتك المثالية في 3 أسئلة">
+    <meta property="og:title" content="HYMI - اكتشف قهوتك">
+    <meta property="og:description" content="3 أسئلة فقط ونقول لك أي كبسولة تشبه يومك">
+    <meta property="og:image" content="https://hymi-coffee.vercel.app/assets/og-image.jpg">
+    <title>HYMI - اكتشف قهوتك ☕</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="assets/logo-icon.png">
+</head>
+<body>
+    <!-- Background Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Main Container -->
+    <div class="container">
+
+        <!-- ===== WELCOME SCREEN ===== -->
+        <div class="screen active" id="welcomeScreen">
+            <div class="welcome-content">
+                <div class="logo-container">
+                    <div class="logo-glow"></div>
+                    <div class="logo">
+                        <img src="assets/logo.png" alt="HYMI Logo" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                        <div class="logo-fallback" style="display:none;">
+                            <span class="logo-text">HY</span>
+                            <span class="logo-sub">MI</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h1 class="welcome-title">
+                    <span class="title-line">خلنا نقرأ مزاجك</span>
+                    <span class="title-emoji">👀</span>
+                </h1>
+
+                <p class="welcome-subtitle">
+                    3 أسئلة فقط، ونقول لك أي كبسولة<br>تشبه يومك اليوم
+                </p>
+
+                <div class="features">
+                    <div class="feature">
+                        <span class="feature-icon">⚡</span>
+                        <span class="feature-text">30 ثانية</span>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-icon">🎯</span>
+                        <span class="feature-text">نتيجة دقيقة</span>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-icon">☕</span>
+                        <span class="feature-text">10 نكهات</span>
+                    </div>
+                </div>
+
+                <button class="start-btn" id="startBtn" onclick="startQuiz()">
+                    <span class="btn-text">ابدأ اللعب</span>
+                    <span class="btn-icon">☕</span>
+                    <div class="btn-shine"></div>
+                </button>
+
+                <p class="welcome-hint">لا نحتاج اسمك أو رقمك 😊</p>
+            </div>
+        </div>
+
+        <!-- ===== QUESTION SCREEN ===== -->
+        <div class="screen" id="questionScreen">
+            <div class="question-content">
+                <!-- Progress -->
+                <div class="progress-wrapper">
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" id="progressBar"></div>
+                    </div>
+                    <div class="progress-dots" id="progressDots">
+                        <div class="progress-dot active"></div>
+                        <div class="progress-dot"></div>
+                        <div class="progress-dot"></div>
+                    </div>
+                </div>
+
+                <!-- Question Counter -->
+                <div class="question-counter" id="questionCounter">
+                    السؤال <span class="counter-current">1</span> من <span class="counter-total">3</span>
+                </div>
+
+                <!-- Question Text -->
+                <div class="question-card">
+                    <h2 class="question-text" id="questionText">جاري التحميل...</h2>
+                    <div class="question-decoration">
+                        <span class="deco-line"></span>
+                        <span class="deco-icon">☕</span>
+                        <span class="deco-line"></span>
+                    </div>
+                </div>
+
+                <!-- Options -->
+                <div class="options-container" id="optionsContainer"></div>
+            </div>
+        </div>
+
+        <!-- ===== LOADING SCREEN ===== -->
+        <div class="screen" id="loadingScreen">
+            <div class="loading-content">
+                <div class="loading-coffee">
+                    <div class="coffee-cup">
+                        <div class="cup-body">
+                            <div class="cup-liquid"></div>
+                            <div class="cup-handle"></div>
+                        </div>
+                        <div class="steam steam-1"></div>
+                        <div class="steam steam-2"></div>
+                        <div class="steam steam-3"></div>
+                    </div>
+                </div>
+
+                <h2 class="loading-title" id="loadingTitle">جاري تحليل المزاج</h2>
+                <p class="loading-subtitle" id="loadingSubtitle">نقرأ طاقتك البشرية</p>
+
+                <div class="loading-progress">
+                    <div class="loading-progress-bar" id="loadingProgressBar"></div>
+                </div>
+
+                <div class="loading-fun-facts" id="loadingFunFacts">
+                    <p class="fun-fact">هل تعلم؟ القهوة تُزرع في أكثر من 70 دولة 🌍</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== RESULT SCREEN ===== -->
+        <div class="screen" id="resultScreen">
+            <div class="result-content">
+                <!-- Result Badge -->
+                <div class="result-badge">
+                    <span class="badge-icon">🎯</span>
+                    <span class="badge-text">لقيناها!</span>
+                </div>
+
+                <!-- Mood Name -->
+                <h2 class="mood-name" id="moodName">Survival Mode</h2>
+                <p class="mood-subtitle" id="moodSubtitle">يومك واضح أنه يحتاج تدخل سريع</p>
+
+                <!-- Capsule Showcase -->
+                <div class="capsule-showcase">
+                    <div class="capsule-glow" id="capsuleGlow"></div>
+                    <div class="capsule-image-wrapper">
+                        <img class="capsule-image" id="capsuleImage" src="" alt="كبسولة القهوة">
+                        <div class="capsule-image-fallback" id="capsuleImageFallback" style="display:none;">
+                            <span class="fallback-icon">☕</span>
+                        </div>
+                    </div>
+                    <div class="capsule-name-wrapper">
+                        <h3 class="capsule-name" id="capsuleName">Cold Brew Dark</h3>
+                        <div class="capsule-tags" id="capsuleTags"></div>
+                    </div>
+                </div>
+
+                <!-- Capsule Description -->
+                <div class="description-card">
+                    <p class="capsule-description" id="capsuleDescription">
+                        القهوة اليوم مو خيار… ضرورة.
+                    </p>
+                </div>
+
+                <!-- Mood Stats -->
+                <div class="stats-section">
+                    <h4 class="stats-title">تحليل مزاجك 📊</h4>
+                    <div class="stats-grid" id="moodStats"></div>
+                </div>
+
+                <!-- Alternative -->
+                <div class="alternative-section" id="alternativeSection">
+                    <p class="alt-label">أو يمكنك تجربة:</p>
+                    <div class="alt-capsule" id="altCapsule">
+                        <span class="alt-name" id="altName">Americano</span>
+                        <span class="alt-arrow">←</span>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="actions">
+                    <button class="try-btn" id="tryBtn" onclick="goToCounter()">
+                        <span class="btn-icon">☕</span>
+                        <span class="btn-text">جرّبها عند كاونتر HYMI</span>
+                    </button>
+
+                    <button class="share-btn" id="shareBtn" onclick="shareResult()">
+                        <span class="btn-icon">📸</span>
+                        <span class="btn-text">خذ screenshot وشاركها</span>
+                    </button>
+
+                    <button class="retry-btn" onclick="resetQuiz()">
+                        <span class="btn-icon">🔄</span>
+                        <span class="btn-text">العب مرة ثانية</span>
+                    </button>
+                </div>
+
+                <!-- Footer -->
+                <div class="result-footer">
+                    <p class="footer-text">صنع بـ ❤️ بواسطة HYMI</p>
+                    <p class="footer-hint">كل مرة تلعب = مزاج مختلف 🎲</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
