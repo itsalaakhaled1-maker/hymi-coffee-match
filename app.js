@@ -342,10 +342,10 @@
             description: "القهوة اليوم مو خيار… ضرورة. قوية وباردة.",
             image: "capsules/cold-brew-dark.png",
             profile: {
-                variety: "Cold Brew",
+                variety: "Yunnan",
                 ratio: "100%",
                 roast: "Dark Roast",
-                origin: "Vietnam"
+                origin: "China"
             },
             stats: { energy: 20, patience: 15, coffeeNeed: 99 }
         },
