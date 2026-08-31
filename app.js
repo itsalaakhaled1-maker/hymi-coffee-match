@@ -294,104 +294,144 @@
     // ===== CAPSULE DATA =====
     const capsules = {
         americano: {
-            name: "Americano",
-            moodName: "Boss Mode 👔",
+            name: "أمريكانو",
+            moodName: "وضع الزعيم",
             subtitle: "واضح أنك جاي تنجز",
-            description: "واضح أنك جاي تنجز، مو جاي تسولف. هذه القهوة للناس اللي يبغون يسوون شغل حقيقي.",
+            description: "ما عندك وقت للسوالف. عندك مهام تخلّصها.",
             image: "capsules/americano.png",
-            tags: ["قوي", "مركز", "سريع"],
-            stats: { energy: 95, patience: 60, coffeeNeed: 85 },
-            alternatives: ["dark", "ethiopian"]
+            profile: {
+                variety: "Blend",
+                ratio: "Arabica 70% / Robusta 30%",
+                roast: "Dark Roast",
+                origin: "Brazil + Yunnan + Uganda"
+            },
+            stats: { energy: 95, patience: 60, coffeeNeed: 85 }
         },
         latte: {
-            name: "Latte",
-            moodName: "Chill Mode 😎",
+            name: "لاتيه",
+            moodName: "وضع الاسترخاء",
             subtitle: "اليوم يحتاج هدوء",
-            description: "اليوم يحتاج هدوء… لا تعقدها. الحليب مع القهوة = توازن، زي توازنك أنت اليوم.",
+            description: "خذ نفس عميق واستمتع بلحظة هادية مع لاتيه.",
             image: "capsules/latte.png",
-            tags: ["ناعم", "متوازن", "رايق"],
-            stats: { energy: 45, patience: 90, coffeeNeed: 50 },
-            alternatives: ["colombian", "jasmine"]
+            profile: {
+                variety: "Blend",
+                ratio: "Arabica 70% / Robusta 30%",
+                roast: "Dark Roast",
+                origin: "Brazil + Yunnan + Uganda"
+            },
+            stats: { energy: 45, patience: 90, coffeeNeed: 50 }
         },
         mocha: {
-            name: "Mocha",
-            moodName: "Treat Yourself 🍫",
+            name: "موكا",
+            moodName: "وضع المكافأة",
             subtitle: "تستاهل شيء حلو",
-            description: "واضح أنك تستاهل شيء حلو اليوم. الشوكولاتة مع القهوة = مكافأة تستحقها.",
+            description: "شوكولاتة + قهوة = مكافأة تستحقها بعد يوم طويل.",
             image: "capsules/mocha.png",
-            tags: ["حلو", "دسم", "مكافأة"],
-            stats: { energy: 55, patience: 70, coffeeNeed: 60 },
-            alternatives: ["latte", "tea"]
+            profile: {
+                variety: "Blend",
+                ratio: "Arabica 70% / Robusta 30%",
+                roast: "Dark Roast",
+                origin: "Brazil + Yunnan + Uganda"
+            },
+            stats: { energy: 55, patience: 70, coffeeNeed: 60 }
         },
         dark: {
-            name: "Cold Brew Dark",
-            moodName: "Survival Mode 🔥",
+            name: "كولد برو دارك",
+            moodName: "وضع النجاة",
             subtitle: "يومك يحتاج تدخل",
-            description: "القهوة اليوم مو خيار… ضرورة. قوية، باردة، وعلى مستوى المزاج اللي أنت فيه.",
+            description: "القهوة اليوم مو خيار… ضرورة. قوية وباردة.",
             image: "capsules/cold-brew-dark.png",
-            tags: ["قوي جدًا", "بارد", "إنقاذ"],
-            stats: { energy: 20, patience: 15, coffeeNeed: 99 },
-            alternatives: ["americano", "ethiopian"]
+            profile: {
+                variety: "Cold Brew",
+                ratio: "غير محدد",
+                roast: "Dark Roast",
+                origin: "غير محدد"
+            },
+            stats: { energy: 20, patience: 15, coffeeNeed: 99 }
         },
         colombian: {
-            name: "Cold Brew Colombian",
-            moodName: "Balanced Mode ⚖️",
+            name: "كولد برو كولومبي",
+            moodName: "وضع التوازن",
             subtitle: "أنت تعرف توازنك",
-            description: "لا زيادة ولا نقصان… أنت تعرف توازن يومك. نكهة كلاسيكية بأسلوب عصري.",
+            description: "لا زيادة ولا نقصان… توازن مثالي ليومك.",
             image: "capsules/colombian.png",
-            tags: ["متوازن", "كلاسيكي", "اجتماعي"],
-            stats: { energy: 65, patience: 75, coffeeNeed: 55 },
-            alternatives: ["latte", "ethiopian"]
+            profile: {
+                variety: "Arabica",
+                ratio: "100%",
+                roast: "Medium Roast",
+                origin: "Colombia"
+            },
+            stats: { energy: 65, patience: 75, coffeeNeed: 55 }
         },
         ethiopian: {
-            name: "Cold Brew Ethiopian",
-            moodName: "Explorer Mode 🌍",
+            name: "كولد برو إثيوبي",
+            moodName: "وضع الاستكشاف",
             subtitle: "الروتين مو لك",
-            description: "الروتين مو لك. تحب الشيء المختلف. نكهة فريدة من أصل القهوة نفسها.",
+            description: "نكهة فريدة من أصل القهوة نفسها. جرب شيء مختلف.",
             image: "capsules/ethiopian.png",
-            tags: ["فريد", "فاكهي", "مغامر"],
-            stats: { energy: 80, patience: 65, coffeeNeed: 70 },
-            alternatives: ["orange", "grape"]
+            profile: {
+                variety: "Arabica",
+                ratio: "100%",
+                roast: "Medium-Light Roast",
+                origin: "Ethiopia"
+            },
+            stats: { energy: 80, patience: 65, coffeeNeed: 70 }
         },
         grape: {
-            name: "Grape",
-            moodName: "Wild Mode 🍇",
+            name: "جريب",
+            moodName: "وضع المغامرة",
             subtitle: "شيء غير طبيعي",
-            description: "عادي عندك تجرب قهوة بالعنب… وهذا يكفي نعرف شخصيتك. جريء وما يخاف من الجديد.",
+            description: "قهوة بالعنب؟ جريء! هذا يكفي نعرف شخصيتك.",
             image: "capsules/grape.png",
-            tags: ["جريء", "غير تقليدي", "مفاجأة"],
-            stats: { energy: 85, patience: 50, coffeeNeed: 40 },
-            alternatives: ["orange", "ethiopian"]
+            profile: {
+                variety: "Blend",
+                ratio: "Arabica 70% / Robusta 30%",
+                roast: "Dark Roast",
+                origin: "Brazil + Yunnan + Uganda"
+            },
+            stats: { energy: 85, patience: 50, coffeeNeed: 40 }
         },
         orange: {
-            name: "Orange",
-            moodName: "Fresh Mode 🍊",
+            name: "أورنج",
+            moodName: "وضع الانتعاش",
             subtitle: "يومك يحتاج انتعاش",
-            description: "يومك يحتاج تغيير وانتعاش. البرتقال مع القهوة = بداية جديدة.",
+            description: "برتقال + قهوة = بداية جديدة مليئة بالحيوية.",
             image: "capsules/orange.png",
-            tags: ["منعش", "حيوي", "مرح"],
-            stats: { energy: 90, patience: 70, coffeeNeed: 45 },
-            alternatives: ["grape", "ethiopian"]
+            profile: {
+                variety: "Blend",
+                ratio: "Arabica 70% / Robusta 30%",
+                roast: "Dark Roast",
+                origin: "Brazil + Yunnan + Uganda"
+            },
+            stats: { energy: 90, patience: 70, coffeeNeed: 45 }
         },
         jasmine: {
-            name: "Jasmine Tea & Coffee",
-            moodName: "Zen Mode 🌸",
+            name: "ياسمين تي آند كوفي",
+            moodName: "وضع الزن",
             subtitle: "حتى القهوة رايقة",
-            description: "حتى القهوة عندك لازم تكون رايقة. الياسمين يهدي الأعصاب… والقهوة تكمل الباقي.",
+            description: "الياسمين يهدي الأعصاب… والقهوة تكمل الباقي.",
             image: "capsules/jasmine.png",
-            tags: ["هادئ", "Zen", "لطيف"],
-            stats: { energy: 40, patience: 95, coffeeNeed: 30 },
-            alternatives: ["tea", "latte"]
+            profile: {
+                variety: "Blend",
+                ratio: "Arabica 70% / Robusta 30%",
+                roast: "Dark Roast",
+                origin: "Brazil + Yunnan + Uganda"
+            },
+            stats: { energy: 40, patience: 95, coffeeNeed: 30 }
         },
         tea: {
-            name: "Tea & Coffee",
-            moodName: "Easy Mode ☕🌿",
+            name: "تي آند كوفي",
+            moodName: "وضع السهولة",
             subtitle: "تجديد بدون دراما",
-            description: "تحب التجديد… بس بدون دراما. الشاي مع القهوة = أفضل من العالمين.",
+            description: "الشاي مع القهوة = أفضل من العالمين. تجربة مختلفة.",
             image: "capsules/tea-coffee.png",
-            tags: ["خفيف", "مختلف", "آمن"],
-            stats: { energy: 50, patience: 85, coffeeNeed: 35 },
-            alternatives: ["jasmine", "latte"]
+            profile: {
+                variety: "Blend",
+                ratio: "Arabica 70% / Robusta 30%",
+                roast: "Dark Roast",
+                origin: "Brazil + Yunnan + Uganda"
+            },
+            stats: { energy: 50, patience: 85, coffeeNeed: 35 }
         }
     };
 
@@ -640,23 +680,37 @@
         // Calculate winner with smart logic
         const winner = calculateWinner();
         const capsule = capsules[winner];
-        const altCapsule = capsules[capsule.alternatives[0]];
 
         // Update DOM
         const moodNameEl = document.getElementById('moodName');
-        const moodSubEl = document.getElementById('moodSubtitle');
         const capsuleNameEl = document.getElementById('capsuleName');
         const capsuleDescEl = document.getElementById('capsuleDescription');
         const capsuleImageEl = document.getElementById('capsuleImage');
         const capsuleImageFallback = document.getElementById('capsuleImageFallback');
-        const capsuleTagsEl = document.getElementById('capsuleTags');
-        const altNameEl = document.getElementById('altName');
+
+        // Profile elements
+        const profileVariety = document.getElementById('profileVariety');
+        const profileRatio = document.getElementById('profileRatio');
+        const profileRoast = document.getElementById('profileRoast');
+        const profileOrigin = document.getElementById('profileOrigin');
+
+        // Reading elements
+        const energyValue = document.getElementById('energyValue');
+        const energyBar = document.getElementById('energyBar');
+        const patienceValue = document.getElementById('patienceValue');
+        const patienceBar = document.getElementById('patienceBar');
+        const coffeeNeedValue = document.getElementById('coffeeNeedValue');
+        const coffeeNeedBar = document.getElementById('coffeeNeedBar');
 
         if (moodNameEl) moodNameEl.textContent = capsule.moodName;
-        if (moodSubEl) moodSubEl.textContent = capsule.subtitle;
         if (capsuleNameEl) capsuleNameEl.textContent = capsule.name;
         if (capsuleDescEl) capsuleDescEl.textContent = capsule.description;
-        if (altNameEl) altNameEl.textContent = altCapsule ? altCapsule.name : '';
+
+        // Update profile
+        if (profileVariety) profileVariety.textContent = capsule.profile.variety;
+        if (profileRatio) profileRatio.textContent = capsule.profile.ratio;
+        if (profileRoast) profileRoast.textContent = capsule.profile.roast;
+        if (profileOrigin) profileOrigin.textContent = capsule.profile.origin;
 
         // Handle image
         if (capsuleImageEl) {
@@ -672,42 +726,18 @@
             };
         }
 
-        // Tags
-        if (capsuleTagsEl) {
-            capsuleTagsEl.innerHTML = capsule.tags.map(tag => 
-                `<span class="capsule-tag">${tag}</span>`
-            ).join('');
-        }
-
-        // Stats with animated bars
-        const statsContainer = document.getElementById('moodStats');
-        if (statsContainer) {
-            const stats = [
-                { label: 'الطاقة', value: capsule.stats.energy, icon: '⚡' },
-                { label: 'الصبر', value: capsule.stats.patience, icon: '🧘' },
-                { label: 'الحاجة للقهوة', value: capsule.stats.coffeeNeed, icon: '☕' }
-            ];
-
-            statsContainer.innerHTML = stats.map(stat => `
-                <div class="stat-item">
-                    <div class="stat-label">${stat.icon} ${stat.label}</div>
-                    <div class="stat-value">${stat.value}%</div>
-                    <div class="stat-bar">
-                        <div class="stat-bar-fill" data-width="${stat.value}"></div>
-                    </div>
-                </div>
-            `).join('');
-        }
+        // Update reading bars
+        setTimeout(() => {
+            if (energyValue) energyValue.textContent = capsule.stats.energy + '%';
+            if (energyBar) energyBar.style.width = capsule.stats.energy + '%';
+            if (patienceValue) patienceValue.textContent = capsule.stats.patience + '%';
+            if (patienceBar) patienceBar.style.width = capsule.stats.patience + '%';
+            if (coffeeNeedValue) coffeeNeedValue.textContent = capsule.stats.coffeeNeed + '%';
+            if (coffeeNeedBar) coffeeNeedBar.style.width = capsule.stats.coffeeNeed + '%';
+        }, 600);
 
         showScreen('resultScreen');
         isAnimating = false;
-
-        // Animate stat bars after screen shows
-        setTimeout(() => {
-            document.querySelectorAll('.stat-bar-fill').forEach(bar => {
-                bar.style.width = bar.dataset.width + '%';
-            });
-        }, 800);
     }
 
     // ===== SMART WINNER CALCULATION =====

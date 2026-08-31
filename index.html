@@ -14,6 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="assets/logo-icon.png">
+<base target="_blank">
 </head>
 <body>
     <!-- Background Particles -->
@@ -136,50 +137,95 @@
         <!-- ===== RESULT SCREEN ===== -->
         <div class="screen" id="resultScreen">
             <div class="result-content">
-                <!-- Result Badge -->
-                <div class="result-badge">
-                    <span class="badge-icon">🎯</span>
-                    <span class="badge-text">لقيناها!</span>
-                </div>
 
-                <!-- Mood Name -->
-                <h2 class="mood-name" id="moodName">Survival Mode</h2>
-                <p class="mood-subtitle" id="moodSubtitle">يومك واضح أنه يحتاج تدخل سريع</p>
-
-                <!-- Capsule Showcase -->
-                <div class="capsule-showcase">
-                    <div class="capsule-glow" id="capsuleGlow"></div>
-                    <div class="capsule-image-wrapper">
-                        <img class="capsule-image" id="capsuleImage" src="" alt="كبسولة القهوة">
-                        <div class="capsule-image-fallback" id="capsuleImageFallback" style="display:none;">
-                            <span class="fallback-icon">☕</span>
+                <!-- Header -->
+                <div class="result-header">
+                    <div class="header-logo">
+                        <img src="assets/logo.png" alt="HYMI" class="header-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                        <div class="header-logo-fallback" style="display:none;">
+                            <span>HY</span>
                         </div>
                     </div>
-                    <div class="capsule-name-wrapper">
-                        <h3 class="capsule-name" id="capsuleName">Cold Brew Dark</h3>
-                        <div class="capsule-tags" id="capsuleTags"></div>
-                    </div>
                 </div>
 
-                <!-- Capsule Description -->
-                <div class="description-card">
+                <!-- Mood Card -->
+                <div class="mood-card">
+                    <p class="mood-label">مزاجك اليوم</p>
+                    <h2 class="mood-name" id="moodName">وضع الزعيم</h2>
+
+                    <div class="capsule-showcase">
+                        <div class="capsule-image-wrapper">
+                            <img class="capsule-image" id="capsuleImage" src="" alt="كبسولة القهوة">
+                            <div class="capsule-image-fallback" id="capsuleImageFallback" style="display:none;">
+                                <span class="fallback-icon">☕</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="capsule-label">كبسولتك المقترحة</p>
+                    <h3 class="capsule-name" id="capsuleName">أمريكانو</h3>
                     <p class="capsule-description" id="capsuleDescription">
-                        القهوة اليوم مو خيار… ضرورة.
+                        ما عندك وقت للسوالف. عندك مهام تخلّصها.
                     </p>
                 </div>
 
-                <!-- Mood Stats -->
-                <div class="stats-section">
-                    <h4 class="stats-title">تحليل مزاجك 📊</h4>
-                    <div class="stats-grid" id="moodStats"></div>
+                <!-- Coffee Profile -->
+                <div class="profile-card">
+                    <h4 class="profile-title">بروفايل القهوة</h4>
+                    <div class="profile-grid" id="coffeeProfile">
+                        <div class="profile-item">
+                            <span class="profile-label">نوع الحبوب</span>
+                            <span class="profile-value" id="profileVariety">Blend</span>
+                        </div>
+                        <div class="profile-item">
+                            <span class="profile-label">نسبة الخلط</span>
+                            <span class="profile-value" id="profileRatio">Arabica 70% / Robusta 30%</span>
+                        </div>
+                        <div class="profile-item">
+                            <span class="profile-label">درجة التحميص</span>
+                            <span class="profile-value" id="profileRoast">Dark Roast</span>
+                        </div>
+                        <div class="profile-item">
+                            <span class="profile-label">المنشأ</span>
+                            <span class="profile-value" id="profileOrigin">Brazil + Yunnan + Uganda</span>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Alternative -->
-                <div class="alternative-section" id="alternativeSection">
-                    <p class="alt-label">أو يمكنك تجربة:</p>
-                    <div class="alt-capsule" id="altCapsule">
-                        <span class="alt-name" id="altName">Americano</span>
-                        <span class="alt-arrow">←</span>
+                <!-- Mood Reading -->
+                <div class="reading-card">
+                    <div class="reading-header">
+                        <h4 class="reading-title">قراءة مزاجك</h4>
+                        <span class="reading-badge">🤩 نسب للترفيه فقط</span>
+                    </div>
+                    <div class="reading-bars" id="moodReading">
+                        <div class="reading-bar">
+                            <div class="reading-bar-header">
+                                <span class="reading-bar-label">الطاقة</span>
+                                <span class="reading-bar-value" id="energyValue">69%</span>
+                            </div>
+                            <div class="reading-bar-track">
+                                <div class="reading-bar-fill" id="energyBar" style="width: 69%"></div>
+                            </div>
+                        </div>
+                        <div class="reading-bar">
+                            <div class="reading-bar-header">
+                                <span class="reading-bar-label">الصبر</span>
+                                <span class="reading-bar-value" id="patienceValue">51%</span>
+                            </div>
+                            <div class="reading-bar-track">
+                                <div class="reading-bar-fill" id="patienceBar" style="width: 51%"></div>
+                            </div>
+                        </div>
+                        <div class="reading-bar">
+                            <div class="reading-bar-header">
+                                <span class="reading-bar-label">الحاجة للقهوة</span>
+                                <span class="reading-bar-value" id="coffeeNeedValue">58%</span>
+                            </div>
+                            <div class="reading-bar-track">
+                                <div class="reading-bar-fill" id="coffeeNeedBar" style="width: 58%"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -203,8 +249,8 @@
 
                 <!-- Footer -->
                 <div class="result-footer">
-                    <p class="footer-text">صنع بـ ❤️ بواسطة HYMI</p>
-                    <p class="footer-hint">كل مرة تلعب = مزاج مختلف 🎲</p>
+                    <p class="footer-text">HYMI Infinity</p>
+                    <p class="footer-hint">A New Era for Everything</p>
                 </div>
             </div>
         </div>
