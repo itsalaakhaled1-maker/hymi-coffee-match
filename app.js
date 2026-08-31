@@ -343,9 +343,9 @@
             image: "capsules/cold-brew-dark.png",
             profile: {
                 variety: "Cold Brew",
-                ratio: "غير محدد",
+                ratio: "100%",
                 roast: "Dark Roast",
-                origin: "غير محدد"
+                origin: "Vietnam"
             },
             stats: { energy: 20, patience: 15, coffeeNeed: 99 }
         },
