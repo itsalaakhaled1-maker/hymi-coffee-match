@@ -11,9 +11,10 @@
     <title>HYMI - اكتشف قهوتك ☕</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="assets/logo-icon.png">
+<base target="_blank">
 <base target="_blank">
 </head>
 <body>
@@ -23,8 +24,42 @@
     <!-- Main Container -->
     <div class="container">
 
+        <!-- ===== LANGUAGE SELECTOR SCREEN ===== -->
+        <div class="screen active" id="languageScreen">
+            <div class="language-content">
+                <div class="logo-container">
+                    <div class="logo-glow"></div>
+                    <div class="logo">
+                        <img src="assets/logo.png" alt="HYMI Logo" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                        <div class="logo-fallback" style="display:none;">
+                            <span class="logo-text">HY</span>
+                            <span class="logo-sub">MI</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h1 class="welcome-title">
+                    <span class="title-line" data-i18n="chooseLang">Choose Your Language</span>
+                </h1>
+                <p class="welcome-subtitle" data-i18n="chooseLangSub">اختر لغتك المفضلة</p>
+
+                <div class="language-options">
+                    <button class="lang-btn" onclick="setLanguage('ar')">
+                        <span class="lang-flag">🇦🇪</span>
+                        <span class="lang-name">العربية</span>
+                        <span class="lang-hint">Arabic</span>
+                    </button>
+                    <button class="lang-btn" onclick="setLanguage('en')">
+                        <span class="lang-flag">🇬🇧</span>
+                        <span class="lang-name">English</span>
+                        <span class="lang-hint">الإنجليزية</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
         <!-- ===== WELCOME SCREEN ===== -->
-        <div class="screen active" id="welcomeScreen">
+        <div class="screen" id="welcomeScreen">
             <div class="welcome-content">
                 <div class="logo-container">
                     <div class="logo-glow"></div>
@@ -38,36 +73,36 @@
                 </div>
 
                 <h1 class="welcome-title">
-                    <span class="title-line">خلنا نقرأ مزاجك</span>
+                    <span class="title-line" data-i18n="welcomeTitle">خلنا نقرأ مزاجك</span>
                     <span class="title-emoji">👀</span>
                 </h1>
 
-                <p class="welcome-subtitle">
+                <p class="welcome-subtitle" data-i18n="welcomeSub">
                     3 أسئلة فقط، ونقول لك أي كبسولة<br>تشبه يومك اليوم
                 </p>
 
                 <div class="features">
                     <div class="feature">
                         <span class="feature-icon">⚡</span>
-                        <span class="feature-text">30 ثانية</span>
+                        <span class="feature-text" data-i18n="feat1">30 ثانية</span>
                     </div>
                     <div class="feature">
                         <span class="feature-icon">🎯</span>
-                        <span class="feature-text">نتيجة دقيقة</span>
+                        <span class="feature-text" data-i18n="feat2">نتيجة دقيقة</span>
                     </div>
                     <div class="feature">
                         <span class="feature-icon">☕</span>
-                        <span class="feature-text">10 نكهات</span>
+                        <span class="feature-text" data-i18n="feat3">10 نكهات</span>
                     </div>
                 </div>
 
                 <button class="start-btn" id="startBtn" onclick="startQuiz()">
-                    <span class="btn-text">ابدأ اللعب</span>
+                    <span class="btn-text" data-i18n="startBtn">ابدأ اللعب</span>
                     <span class="btn-icon">☕</span>
                     <div class="btn-shine"></div>
                 </button>
 
-                <p class="welcome-hint">لا نحتاج اسمك أو رقمك 😊</p>
+                <p class="welcome-hint" data-i18n="noData">لا نحتاج اسمك أو رقمك 😊</p>
             </div>
         </div>
 
@@ -88,7 +123,7 @@
 
                 <!-- Question Counter -->
                 <div class="question-counter" id="questionCounter">
-                    السؤال <span class="counter-current">1</span> من <span class="counter-total">3</span>
+                    <span data-i18n="question">السؤال</span> <span class="counter-current">1</span> <span data-i18n="of">من</span> <span class="counter-total">3</span>
                 </div>
 
                 <!-- Question Text -->
@@ -121,15 +156,15 @@
                     </div>
                 </div>
 
-                <h2 class="loading-title" id="loadingTitle">جاري تحليل المزاج</h2>
-                <p class="loading-subtitle" id="loadingSubtitle">نقرأ طاقتك البشرية</p>
+                <h2 class="loading-title" id="loadingTitle" data-i18n="loading1">جاري تحليل المزاج</h2>
+                <p class="loading-subtitle" id="loadingSubtitle" data-i18n="loadingSub1">نقرأ طاقتك البشرية</p>
 
                 <div class="loading-progress">
                     <div class="loading-progress-bar" id="loadingProgressBar"></div>
                 </div>
 
                 <div class="loading-fun-facts" id="loadingFunFacts">
-                    <p class="fun-fact">هل تعلم؟ القهوة تُزرع في أكثر من 70 دولة 🌍</p>
+                    <p class="fun-fact" data-i18n="funFact1">هل تعلم؟ القهوة تُزرع في أكثر من 70 دولة 🌍</p>
                 </div>
             </div>
         </div>
@@ -150,7 +185,7 @@
 
                 <!-- Mood Card -->
                 <div class="mood-card">
-                    <p class="mood-label">مزاجك اليوم</p>
+                    <p class="mood-label" data-i18n="yourMood">مزاجك اليوم</p>
                     <h2 class="mood-name" id="moodName">وضع الزعيم</h2>
 
                     <div class="capsule-showcase">
@@ -162,7 +197,7 @@
                         </div>
                     </div>
 
-                    <p class="capsule-label">كبسولتك المقترحة</p>
+                    <p class="capsule-label" data-i18n="suggested">كبسولتك المقترحة</p>
                     <h3 class="capsule-name" id="capsuleName">أمريكانو</h3>
                     <p class="capsule-description" id="capsuleDescription">
                         ما عندك وقت للسوالف. عندك مهام تخلّصها.
@@ -171,22 +206,22 @@
 
                 <!-- Coffee Profile -->
                 <div class="profile-card">
-                    <h4 class="profile-title">بروفايل القهوة</h4>
+                    <h4 class="profile-title" data-i18n="coffeeProfile">بروفايل القهوة</h4>
                     <div class="profile-grid" id="coffeeProfile">
                         <div class="profile-item">
-                            <span class="profile-label">نوع الحبوب</span>
+                            <span class="profile-label" data-i18n="variety">نوع الحبوب</span>
                             <span class="profile-value" id="profileVariety">Blend</span>
                         </div>
                         <div class="profile-item">
-                            <span class="profile-label">نسبة الخلط</span>
+                            <span class="profile-label" data-i18n="ratio">نسبة الخلط</span>
                             <span class="profile-value" id="profileRatio">Arabica 70% / Robusta 30%</span>
                         </div>
                         <div class="profile-item">
-                            <span class="profile-label">درجة التحميص</span>
+                            <span class="profile-label" data-i18n="roast">درجة التحميص</span>
                             <span class="profile-value" id="profileRoast">Dark Roast</span>
                         </div>
                         <div class="profile-item">
-                            <span class="profile-label">المنشأ</span>
+                            <span class="profile-label" data-i18n="origin">المنشأ</span>
                             <span class="profile-value" id="profileOrigin">Brazil + Yunnan + Uganda</span>
                         </div>
                     </div>
@@ -195,13 +230,13 @@
                 <!-- Mood Reading -->
                 <div class="reading-card">
                     <div class="reading-header">
-                        <h4 class="reading-title">قراءة مزاجك</h4>
-                        <span class="reading-badge">🤩 نسب للترفيه فقط</span>
+                        <h4 class="reading-title" data-i18n="moodReading">قراءة مزاجك</h4>
+                        <span class="reading-badge" data-i18n="forFun">🤩 نسب للترفيه فقط</span>
                     </div>
                     <div class="reading-bars" id="moodReading">
                         <div class="reading-bar">
                             <div class="reading-bar-header">
-                                <span class="reading-bar-label">الطاقة</span>
+                                <span class="reading-bar-label" data-i18n="energy">الطاقة</span>
                                 <span class="reading-bar-value" id="energyValue">69%</span>
                             </div>
                             <div class="reading-bar-track">
@@ -210,7 +245,7 @@
                         </div>
                         <div class="reading-bar">
                             <div class="reading-bar-header">
-                                <span class="reading-bar-label">الصبر</span>
+                                <span class="reading-bar-label" data-i18n="patience">الصبر</span>
                                 <span class="reading-bar-value" id="patienceValue">51%</span>
                             </div>
                             <div class="reading-bar-track">
@@ -219,7 +254,7 @@
                         </div>
                         <div class="reading-bar">
                             <div class="reading-bar-header">
-                                <span class="reading-bar-label">الحاجة للقهوة</span>
+                                <span class="reading-bar-label" data-i18n="coffeeNeed">الحاجة للقهوة</span>
                                 <span class="reading-bar-value" id="coffeeNeedValue">58%</span>
                             </div>
                             <div class="reading-bar-track">
@@ -233,24 +268,24 @@
                 <div class="actions">
                     <button class="try-btn" id="tryBtn" onclick="goToCounter()">
                         <span class="btn-icon">☕</span>
-                        <span class="btn-text">جرّبها عند كاونتر HYMI</span>
+                        <span class="btn-text" data-i18n="tryIt">جرّبها عند كاونتر HYMI</span>
                     </button>
 
                     <button class="share-btn" id="shareBtn" onclick="shareResult()">
                         <span class="btn-icon">📸</span>
-                        <span class="btn-text">خذ screenshot وشاركها</span>
+                        <span class="btn-text" data-i18n="share">خذ screenshot وشاركها</span>
                     </button>
 
                     <button class="retry-btn" onclick="resetQuiz()">
                         <span class="btn-icon">🔄</span>
-                        <span class="btn-text">العب مرة ثانية</span>
+                        <span class="btn-text" data-i18n="playAgain">العب مرة ثانية</span>
                     </button>
                 </div>
 
                 <!-- Footer -->
                 <div class="result-footer">
                     <p class="footer-text">HYMI Infinity</p>
-                    <p class="footer-hint">A New Era for Everything</p>
+                    <p class="footer-hint" data-i18n="footerHint">A New Era for Everything</p>
                 </div>
             </div>
         </div>

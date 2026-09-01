@@ -1,12 +1,125 @@
-// ===== HYMI Coffee Match - Mood Engine =====
-// 30 Questions | 3 Groups | 10 Capsules | Smart Scoring
+// ===== HYMI Coffee Match - Mood Engine (Bilingual) =====
+// 30 Questions | 3 Groups | 10 Capsules | Smart Scoring | AR/EN
 
 (function() {
     'use strict';
 
-    // ===== DATA: Question Bank (30 Questions in 3 Groups) =====
-    const questionBank = {
-        groupA: [ // Energy State - حالتك اليوم
+    // ===== TRANSLATIONS =====
+    const translations = {
+        ar: {
+            chooseLang: "اختر لغتك",
+            chooseLangSub: "Choose Your Language",
+            welcomeTitle: "خلنا نقرأ مزاجك",
+            welcomeSub: "3 أسئلة فقط، ونقول لك أي كبسولة\nتشبه يومك اليوم",
+            feat1: "30 ثانية",
+            feat2: "نتيجة دقيقة",
+            feat3: "10 نكهات",
+            startBtn: "ابدأ اللعب",
+            noData: "لا نحتاج اسمك أو رقمك 😊",
+            question: "السؤال",
+            of: "من",
+            loading1: "جاري تحليل المزاج",
+            loading2: "نبحث عن الكبسولة المثالية",
+            loading3: "لقيناها!",
+            loadingSub1: "نقرأ طاقتك البشرية",
+            loadingSub2: "نقارن بين 10 نكهات",
+            loadingSub3: "جهز نفسك للمفاجأة",
+            yourMood: "مزاجك اليوم",
+            suggested: "كبسولتك المقترحة",
+            coffeeProfile: "بروفايل القهوة",
+            variety: "نوع الحبوب",
+            ratio: "نسبة الخلط",
+            roast: "درجة التحميص",
+            origin: "المنشأ",
+            moodReading: "قراءة مزاجك",
+            forFun: "🤩 نسب للترفيه فقط",
+            energy: "الطاقة",
+            patience: "الصبر",
+            coffeeNeed: "الحاجة للقهوة",
+            tryIt: "جرّبها عند كاونتر HYMI",
+            share: "خذ screenshot وشاركها",
+            playAgain: "العب مرة ثانية",
+            footerHint: "A New Era for Everything",
+            goToCounter: "توجه لكاونتر HYMI وجرب كبسولتك! ☕",
+            copied: "تم نسخ النتيجة! الصقها في واتساب أو أي مكان 📋",
+            screenshot: "خذ screenshot للشاشة وشاركها! 📸",
+            shareTitle: "HYMI - اكتشف قهوتك"
+        },
+        en: {
+            chooseLang: "Choose Your Language",
+            chooseLangSub: "اختر لغتك المفضلة",
+            welcomeTitle: "Let's Read Your Mood",
+            welcomeSub: "Just 3 questions, and we'll tell you\nwhich capsule matches your day",
+            feat1: "30 Seconds",
+            feat2: "Accurate Result",
+            feat3: "10 Flavors",
+            startBtn: "Start Playing",
+            noData: "We don't need your name or number 😊",
+            question: "Question",
+            of: "of",
+            loading1: "Analyzing Your Mood",
+            loading2: "Finding the Perfect Capsule",
+            loading3: "Found It!",
+            loadingSub1: "Reading your human energy",
+            loadingSub2: "Comparing 10 flavors",
+            loadingSub3: "Get ready for the surprise",
+            yourMood: "Your Mood Today",
+            suggested: "Your Suggested Capsule",
+            coffeeProfile: "Coffee Profile",
+            variety: "Variety",
+            ratio: "Blend Ratio",
+            roast: "Roast Level",
+            origin: "Origin",
+            moodReading: "Mood Reading",
+            forFun: "🤩 For entertainment only",
+            energy: "Energy",
+            patience: "Patience",
+            coffeeNeed: "Coffee Need",
+            tryIt: "Try it at HYMI Counter",
+            share: "Take a screenshot & share",
+            playAgain: "Play Again",
+            footerHint: "A New Era for Everything",
+            goToCounter: "Head to HYMI Counter and try your capsule! ☕",
+            copied: "Result copied! Paste it on WhatsApp or anywhere 📋",
+            screenshot: "Take a screenshot and share it! 📸",
+            shareTitle: "HYMI - Discover Your Coffee"
+        }
+    };
+
+    // ===== CURRENT LANGUAGE =====
+    let currentLang = 'ar';
+
+    // ===== FUN FACTS =====
+    const funFacts = {
+        ar: [
+            "هل تعلم؟ القهوة تُزرع في أكثر من 70 دولة 🌍",
+            "القهوة هي ثاني أكثر سلعة تُتاجر في العالم بعد النفط ⛽",
+            "متوسط العربي يشرب 3.5 كوب قهوة يوميًا ☕",
+            "القهوة الباردة تحتاج 12 ساعة تحضير ⏰",
+            "أول كبسولة قهوة اخترعت في سويسرا 🇨🇭",
+            "القهوة تحتوي على أكثر من 1000 مركب كيميائي 🧪",
+            "HYMI تختار لك القهوة المثالية بذكاء اصطناعي 🤖"
+        ],
+        en: [
+            "Did you know? Coffee is grown in over 70 countries 🌍",
+            "Coffee is the second most traded commodity after oil ⛽",
+            "The average Arab drinks 3.5 cups of coffee daily ☕",
+            "Cold brew needs 12 hours to prepare ⏰",
+            "The first coffee capsule was invented in Switzerland 🇨🇭",
+            "Coffee contains over 1000 chemical compounds 🧪",
+            "HYMI picks your perfect coffee with AI 🤖"
+        ]
+    };
+
+    // ===== STATE =====
+    let currentQuestion = 0;
+    let selectedQuestions = [];
+    let scores = {};
+    let isAnimating = false;
+
+    // ===== DATA: Question Bank AR =====
+    const questionBankAR = {
+        groupA: [
             {
                 id: 'sleep',
                 question: "كيف كان نومك أمس؟",
@@ -98,7 +211,7 @@
                 ]
             }
         ],
-        groupB: [ // Mood/Patience - العصبية والتعامل
+        groupB: [
             {
                 id: 'patience',
                 question: "كم نسبة صبرك اليوم؟",
@@ -190,7 +303,7 @@
                 ]
             }
         ],
-        groupC: [ // Personality - الشخصية والمزاج
+        groupC: [
             {
                 id: 'movie',
                 question: "لو يومك كان فيلم، ماذا سيكون؟",
@@ -291,8 +404,295 @@
         ]
     };
 
-    // ===== CAPSULE DATA =====
-    const capsules = {
+    // ===== DATA: Question Bank EN =====
+    const questionBankEN = {
+        groupA: [
+            {
+                id: 'sleep',
+                question: "How was your sleep last night?",
+                options: [
+                    { text: "Royal 👑", emoji: "👑", scores: { latte: 3, colombian: 2, jasmine: 2, tea: 1 } },
+                    { text: "We survived 😅", emoji: "😅", scores: { americano: 2, colombian: 2, mocha: 1, ethiopian: 1 } },
+                    { text: "What sleep? 😂", emoji: "😂", scores: { dark: 3, americano: 2, ethiopian: 1 } }
+                ]
+            },
+            {
+                id: 'battery',
+                question: "What's your human battery level? 🔋",
+                options: [
+                    { text: "100% Ready", emoji: "💪", scores: { ethiopian: 3, orange: 2, grape: 1 } },
+                    { text: "50% I'm okay", emoji: "😊", scores: { colombian: 3, latte: 2, tea: 1 } },
+                    { text: "2% Where's coffee?", emoji: "😵", scores: { dark: 4, americano: 3, mocha: 1 } }
+                ]
+            },
+            {
+                id: 'couch',
+                question: "If we gave you a couch right now…?",
+                options: [
+                    { text: "Don't need it 💪", emoji: "💪", scores: { americano: 3, dark: 2, ethiopian: 1 } },
+                    { text: "Sit for 5 mins", emoji: "😌", scores: { latte: 3, colombian: 2, tea: 1 } },
+                    { text: "Wake me tomorrow 😴", emoji: "😴", scores: { dark: 3, mocha: 2, jasmine: 1 } }
+                ]
+            },
+            {
+                id: 'alarm',
+                question: "When the alarm rings in the morning?",
+                options: [
+                    { text: "Get up immediately", emoji: "⚡", scores: { americano: 3, ethiopian: 2, orange: 1 } },
+                    { text: "One snooze", emoji: "😴", scores: { latte: 3, colombian: 2, mocha: 1 } },
+                    { text: "Negotiations start 😂", emoji: "🤝", scores: { dark: 3, mocha: 2, tea: 1 } }
+                ]
+            },
+            {
+                id: 'brain',
+                question: "How's your brain today?",
+                options: [
+                    { text: "Working 100%", emoji: "🧠", scores: { americano: 3, ethiopian: 2, dark: 1 } },
+                    { text: "Needs warming up", emoji: "🔥", scores: { colombian: 3, latte: 2, mocha: 1 } },
+                    { text: "Out of service", emoji: "💀", scores: { dark: 4, mocha: 2, jasmine: 1 } }
+                ]
+            },
+            {
+                id: 'needCoffee',
+                question: 'How many times did you say "I need coffee" today?',
+                options: [
+                    { text: "Not once", emoji: "😇", scores: { jasmine: 3, tea: 2, latte: 1 } },
+                    { text: "Once or twice", emoji: "☕", scores: { colombian: 3, latte: 2, mocha: 1 } },
+                    { text: "Lost count 😂", emoji: "🤪", scores: { dark: 4, americano: 3, ethiopian: 1 } }
+                ]
+            },
+            {
+                id: 'freeHour',
+                question: "If you had a free hour right now?",
+                options: [
+                    { text: "Get things done", emoji: "💼", scores: { americano: 3, dark: 2, ethiopian: 1 } },
+                    { text: "Chill", emoji: "😌", scores: { latte: 3, jasmine: 2, tea: 1 } },
+                    { text: "Go on an adventure", emoji: "🚀", scores: { grape: 3, orange: 3, ethiopian: 2 } }
+                ]
+            },
+            {
+                id: 'coffeeLate',
+                question: "If your coffee was 10 minutes late?",
+                options: [
+                    { text: "It's fine", emoji: "😌", scores: { jasmine: 3, tea: 2, latte: 1 } },
+                    { text: "Start worrying", emoji: "😬", scores: { colombian: 3, americano: 2, mocha: 1 } },
+                    { text: "Declare emergency 😂", emoji: "🚨", scores: { dark: 4, americano: 3, ethiopian: 1 } }
+                ]
+            },
+            {
+                id: 'work',
+                question: "How's work going today?",
+                options: [
+                    { text: "Excited", emoji: "🔥", scores: { ethiopian: 3, americano: 2, orange: 1 } },
+                    { text: "Getting by", emoji: "😅", scores: { colombian: 3, latte: 2, tea: 1 } },
+                    { text: "Pretending I didn't see 😂", emoji: "🙈", scores: { dark: 3, mocha: 2, jasmine: 1 } }
+                ]
+            },
+            {
+                id: 'word',
+                question: "One word for your day?",
+                options: [
+                    { text: "Achievement", emoji: "🏆", scores: { americano: 3, dark: 2, ethiopian: 1 } },
+                    { text: "Chill", emoji: "🧘", scores: { latte: 3, jasmine: 3, tea: 2 } },
+                    { text: "Survival", emoji: "😵", scores: { dark: 4, mocha: 2, colombian: 1 } }
+                ]
+            }
+        ],
+        groupB: [
+            {
+                id: 'patience',
+                question: "What's your patience level today?",
+                options: [
+                    { text: "100% Angel 😇", emoji: "😇", scores: { jasmine: 3, latte: 2, tea: 2 } },
+                    { text: "50% Depends 😅", emoji: "😅", scores: { colombian: 3, americano: 1, mocha: 1 } },
+                    { text: "1% Don't test me 🔥", emoji: "🔥", scores: { dark: 3, americano: 2, mocha: 1 } }
+                ]
+            },
+            {
+                id: 'beforeCoffee',
+                question: "If someone talks to you before your first coffee?",
+                options: [
+                    { text: "Welcome them 😌", emoji: "😌", scores: { latte: 3, jasmine: 2, tea: 1 } },
+                    { text: "Give me a minute", emoji: "😐", scores: { colombian: 3, americano: 2, mocha: 1 } },
+                    { text: "They'll face the consequences 😤", emoji: "😤", scores: { dark: 4, americano: 3, ethiopian: 1 } }
+                ]
+            },
+            {
+                id: 'people',
+                question: "How are you with people today?",
+                options: [
+                    { text: "Love everyone ❤️", emoji: "❤️", scores: { jasmine: 3, latte: 2, tea: 2 } },
+                    { text: "Depends 😅", emoji: "😅", scores: { colombian: 3, mocha: 2, americano: 1 } },
+                    { text: "Leave me alone", emoji: "🚫", scores: { dark: 3, americano: 2, jasmine: 1 } }
+                ]
+            },
+            {
+                id: 'ignoreBtn',
+                question: 'If you had an "ignore everyone" button?',
+                options: [
+                    { text: "Don't need it", emoji: "😊", scores: { jasmine: 3, tea: 2, latte: 1 } },
+                    { text: "An hour is enough", emoji: "😎", scores: { colombian: 3, latte: 2, mocha: 1 } },
+                    { text: "Where's the button? 😂", emoji: "🔘", scores: { dark: 3, americano: 2, ethiopian: 1 } }
+                ]
+            },
+            {
+                id: 'lastCapsule',
+                question: "If someone took your last capsule?",
+                options: [
+                    { text: "It's fine 😌", emoji: "😌", scores: { jasmine: 3, tea: 2, latte: 1 } },
+                    { text: "Let's talk", emoji: "🤝", scores: { colombian: 3, mocha: 2, americano: 1 } },
+                    { text: "Problem starts here 😤", emoji: "😤", scores: { dark: 4, americano: 3, ethiopian: 1 } }
+                ]
+            },
+            {
+                id: 'talk',
+                question: "How much small talk can you handle?",
+                options: [
+                    { text: "Bring it on", emoji: "☕", scores: { ethiopian: 3, orange: 2, colombian: 1 } },
+                    { text: "Short version please", emoji: "⏱️", scores: { americano: 3, colombian: 2, latte: 1 } },
+                    { text: "No talking allowed 😂", emoji: "🚫", scores: { dark: 3, americano: 2, jasmine: 1 } }
+                ]
+            },
+            {
+                id: 'calmDown',
+                question: 'If someone says "calm down" when you are angry?',
+                options: [
+                    { text: "I calm down 😌", emoji: "😌", scores: { jasmine: 3, tea: 2, latte: 2 } },
+                    { text: "I try", emoji: "😅", scores: { colombian: 3, latte: 2, mocha: 1 } },
+                    { text: "Now I'm angrier 😂", emoji: "🤬", scores: { dark: 4, americano: 3, ethiopian: 1 } }
+                ]
+            },
+            {
+                id: 'simpleTopic',
+                question: 'If someone says "I have a simple topic"?',
+                options: [
+                    { text: "Go ahead", emoji: "👂", scores: { colombian: 3, latte: 2, tea: 1 } },
+                    { text: "Make it short", emoji: "⏱️", scores: { americano: 3, dark: 2, mocha: 1 } },
+                    { text: "I fear the word simple 😂", emoji: "😰", scores: { dark: 3, americano: 2, jasmine: 1 } }
+                ]
+            },
+            {
+                id: 'dontTalk',
+                question: 'Your "do not talk to me" level today?',
+                options: [
+                    { text: "10%", emoji: "😊", scores: { jasmine: 3, tea: 2, ethiopian: 1 } },
+                    { text: "50%", emoji: "😶", scores: { colombian: 3, latte: 2, americano: 1 } },
+                    { text: "99%", emoji: "🚫", scores: { dark: 4, americano: 3, jasmine: 1 } }
+                ]
+            },
+            {
+                id: 'smile',
+                question: 'If someone says "smile" right now?',
+                options: [
+                    { text: "I smile 😄", emoji: "😄", scores: { jasmine: 3, orange: 2, tea: 2 } },
+                    { text: "Maybe", emoji: "🤔", scores: { colombian: 3, latte: 2, mocha: 1 } },
+                    { text: "Don't provoke me 😂", emoji: "😤", scores: { dark: 3, americano: 2, ethiopian: 1 } }
+                ]
+            }
+        ],
+        groupC: [
+            {
+                id: 'movie',
+                question: "If your day was a movie, what would it be?",
+                options: [
+                    { text: "Action 🔥", emoji: "🔥", scores: { dark: 3, americano: 2, ethiopian: 1 } },
+                    { text: "Comedy 😂", emoji: "😂", scores: { orange: 3, grape: 2, ethiopian: 1 } },
+                    { text: "Drama 😭", emoji: "😭", scores: { mocha: 3, latte: 2, jasmine: 1 } },
+                    { text: "Chill 😎", emoji: "😎", scores: { jasmine: 3, tea: 2, latte: 1 } }
+                ]
+            },
+            {
+                id: 'needNow',
+                question: "What does your mood need today?",
+                options: [
+                    { text: "Focus 🧠", emoji: "🧠", scores: { americano: 3, dark: 2, ethiopian: 1 } },
+                    { text: "Chill 😌", emoji: "😌", scores: { latte: 3, jasmine: 3, colombian: 2 } },
+                    { text: "Treat 🍫", emoji: "🍫", scores: { mocha: 4, latte: 2, colombian: 1 } },
+                    { text: "Adventure 🚀", emoji: "🚀", scores: { grape: 4, orange: 3, ethiopian: 2 } }
+                ]
+            },
+            {
+                id: 'cancel',
+                question: "If you could cancel one thing today?",
+                options: [
+                    { text: "Traffic", emoji: "🚗", scores: { jasmine: 3, tea: 2, latte: 1 } },
+                    { text: "Meetings", emoji: "📊", scores: { dark: 3, americano: 2, ethiopian: 1 } },
+                    { text: "Alarm", emoji: "⏰", scores: { mocha: 3, latte: 2, colombian: 1 } },
+                    { text: "People 😂", emoji: "👥", scores: { dark: 3, americano: 2, jasmine: 1 } }
+                ]
+            },
+            {
+                id: 'decisions',
+                question: "How are you with decisions today?",
+                options: [
+                    { text: "Decisive 💪", emoji: "💪", scores: { americano: 3, dark: 2, ethiopian: 1 } },
+                    { text: "Let me think", emoji: "🤔", scores: { colombian: 3, latte: 2, tea: 1 } },
+                    { text: "Don't give me any 😂", emoji: "😵", scores: { mocha: 3, jasmine: 2, tea: 1 } }
+                ]
+            },
+            {
+                id: 'surprise',
+                question: "If today gave you a surprise?",
+                options: [
+                    { text: "Ready for it", emoji: "😎", scores: { ethiopian: 3, orange: 2, grape: 1 } },
+                    { text: "Depends", emoji: "🤷", scores: { colombian: 3, latte: 2, mocha: 1 } },
+                    { text: "No more surprises 😂", emoji: "😅", scores: { dark: 3, americano: 2, jasmine: 1 } }
+                ]
+            },
+            {
+                id: 'character',
+                question: "Which character matches your mood?",
+                options: [
+                    { text: "The Boss 👔", emoji: "👔", scores: { americano: 3, dark: 2, ethiopian: 1 } },
+                    { text: "The Chill 😎", emoji: "😎", scores: { latte: 3, jasmine: 2, tea: 2 } },
+                    { text: "The Survivor 😂", emoji: "😂", scores: { dark: 3, mocha: 2, colombian: 1 } },
+                    { text: "The Adventurer 🚀", emoji: "🚀", scores: { grape: 3, orange: 3, ethiopian: 2 } }
+                ]
+            },
+            {
+                id: 'color',
+                question: "If your energy had a color today?",
+                options: [
+                    { text: "Green 💚", emoji: "💚", scores: { jasmine: 3, tea: 2, colombian: 1 } },
+                    { text: "Yellow 💛", emoji: "💛", scores: { orange: 3, ethiopian: 2, latte: 1 } },
+                    { text: "Red 🔴", emoji: "🔴", scores: { dark: 3, americano: 2, ethiopian: 1 } },
+                    { text: "Off 😂", emoji: "⚫", scores: { dark: 4, mocha: 2, jasmine: 1 } }
+                ]
+            },
+            {
+                id: 'newThing',
+                question: "Want to try something new today?",
+                options: [
+                    { text: "Absolutely!", emoji: "🚀", scores: { grape: 3, orange: 3, ethiopian: 2 } },
+                    { text: "Depends", emoji: "🤔", scores: { ethiopian: 2, colombian: 2, mocha: 1 } },
+                    { text: "Leave me in peace", emoji: "😌", scores: { latte: 3, jasmine: 2, tea: 2 } }
+                ]
+            },
+            {
+                id: 'whatsapp',
+                question: "If your mood was a WhatsApp message?",
+                options: [
+                    { text: "Good morning 🌞", emoji: "🌞", scores: { jasmine: 3, orange: 2, tea: 2 } },
+                    { text: "Busy now", emoji: "🫡", scores: { americano: 3, dark: 2, ethiopian: 1 } },
+                    { text: "Don't text me 😂", emoji: "🚫", scores: { dark: 3, americano: 2, jasmine: 1 } },
+                    { text: "Let's go out 🎉", emoji: "🎉", scores: { grape: 3, orange: 3, ethiopian: 2 } }
+                ]
+            },
+            {
+                id: 'hymiSays',
+                question: "What would HYMI say about your mood?",
+                options: [
+                    { text: "Ready 🔥", emoji: "🔥", scores: { americano: 3, dark: 2, ethiopian: 1 } },
+                    { text: "Chill 😎", emoji: "😎", scores: { latte: 3, jasmine: 2, tea: 2 } },
+                    { text: "Needs rescue 😂", emoji: "🆘", scores: { dark: 4, mocha: 2, colombian: 1 } },
+                    { text: "Something wild 🚀", emoji: "🚀", scores: { grape: 4, orange: 3, ethiopian: 2 } }
+                ]
+            }
+        ]
+    };
+
+    // ===== CAPSULE DATA AR =====
+    const capsulesAR = {
         americano: {
             name: "أمريكانو",
             moodName: "وضع الزعيم",
@@ -435,31 +835,224 @@
         }
     };
 
-    // ===== FUN FACTS FOR LOADING =====
-    const funFacts = [
-        "هل تعلم؟ القهوة تُزرع في أكثر من 70 دولة 🌍",
-        "القهوة هي ثاني أكثر سلعة تُتاجر في العالم بعد النفط ⛽",
-        "متوسط العربي يشرب 3.5 كوب قهوة يوميًا ☕",
-        "القهوة الباردة تحتاج 12 ساعة تحضير ⏰",
-        "أول كبسولة قهوة اخترعت في سويسرا 🇨🇭",
-        "القهوة تحتوي على أكثر من 1000 مركب كيميائي 🧪",
-        "HYMI تختار لك القهوة المثالية بذكاء اصطناعي 🤖"
-    ];
+    // ===== CAPSULE DATA EN =====
+    const capsulesEN = {
+        americano: {
+            name: "Americano",
+            moodName: "Boss Mode",
+            subtitle: "Clearly here to get things done",
+            description: "No time for chit-chat. You've got tasks to crush.",
+            image: "capsules/americano.png",
+            profile: {
+                variety: "Blend",
+                ratio: "Arabica 70% / Robusta 30%",
+                roast: "Dark Roast",
+                origin: "Brazil + Yunnan + Uganda"
+            },
+            stats: { energy: 95, patience: 60, coffeeNeed: 85 }
+        },
+        latte: {
+            name: "Latte",
+            moodName: "Chill Mode",
+            subtitle: "Today needs calm",
+            description: "Take a deep breath and enjoy a peaceful moment with a latte.",
+            image: "capsules/latte.png",
+            profile: {
+                variety: "Blend",
+                ratio: "Arabica 70% / Robusta 30%",
+                roast: "Dark Roast",
+                origin: "Brazil + Yunnan + Uganda"
+            },
+            stats: { energy: 45, patience: 90, coffeeNeed: 50 }
+        },
+        mocha: {
+            name: "Mocha",
+            moodName: "Treat Yourself Mode",
+            subtitle: "You deserve something sweet",
+            description: "Chocolate + Coffee = a reward you deserve after a long day.",
+            image: "capsules/mocha.png",
+            profile: {
+                variety: "Blend",
+                ratio: "Arabica 70% / Robusta 30%",
+                roast: "Dark Roast",
+                origin: "Brazil + Yunnan + Uganda"
+            },
+            stats: { energy: 55, patience: 70, coffeeNeed: 60 }
+        },
+        dark: {
+            name: "Cold Brew Dark",
+            moodName: "Survival Mode",
+            subtitle: "Your day needs intervention",
+            description: "Coffee today isn't a choice… it's a necessity. Strong and cold.",
+            image: "capsules/cold-brew-dark.png",
+            profile: {
+                variety: "Yunnan",
+                ratio: "100%",
+                roast: "Dark Roast",
+                origin: "China"
+            },
+            stats: { energy: 20, patience: 15, coffeeNeed: 99 }
+        },
+        colombian: {
+            name: "Cold Brew Colombian",
+            moodName: "Balanced Mode",
+            subtitle: "You know your balance",
+            description: "Not too much, not too little… perfect balance for your day.",
+            image: "capsules/colombian.png",
+            profile: {
+                variety: "Arabica",
+                ratio: "100%",
+                roast: "Medium Roast",
+                origin: "Colombia"
+            },
+            stats: { energy: 65, patience: 75, coffeeNeed: 55 }
+        },
+        ethiopian: {
+            name: "Cold Brew Ethiopian",
+            moodName: "Explorer Mode",
+            subtitle: "Routine isn't for you",
+            description: "A unique flavor from the birthplace of coffee itself. Try something different.",
+            image: "capsules/ethiopian.png",
+            profile: {
+                variety: "Arabica",
+                ratio: "100%",
+                roast: "Medium-Light Roast",
+                origin: "Ethiopia"
+            },
+            stats: { energy: 80, patience: 65, coffeeNeed: 70 }
+        },
+        grape: {
+            name: "Grape",
+            moodName: "Wild Mode",
+            subtitle: "Something extraordinary",
+            description: "Coffee with grape? Bold! That's enough to know your personality.",
+            image: "capsules/grape.png",
+            profile: {
+                variety: "Blend",
+                ratio: "Arabica 70% / Robusta 30%",
+                roast: "Dark Roast",
+                origin: "Brazil + Yunnan + Uganda"
+            },
+            stats: { energy: 85, patience: 50, coffeeNeed: 40 }
+        },
+        orange: {
+            name: "Orange",
+            moodName: "Fresh Mode",
+            subtitle: "Your day needs refreshment",
+            description: "Orange + Coffee = a fresh start full of vitality.",
+            image: "capsules/orange.png",
+            profile: {
+                variety: "Blend",
+                ratio: "Arabica 70% / Robusta 30%",
+                roast: "Dark Roast",
+                origin: "Brazil + Yunnan + Uganda"
+            },
+            stats: { energy: 90, patience: 70, coffeeNeed: 45 }
+        },
+        jasmine: {
+            name: "Jasmine Tea & Coffee",
+            moodName: "Zen Mode",
+            subtitle: "Even the coffee is chill",
+            description: "Jasmine calms the nerves… and coffee completes the rest.",
+            image: "capsules/jasmine.png",
+            profile: {
+                variety: "Blend",
+                ratio: "Arabica 70% / Robusta 30%",
+                roast: "Dark Roast",
+                origin: "Brazil + Yunnan + Uganda"
+            },
+            stats: { energy: 40, patience: 95, coffeeNeed: 30 }
+        },
+        tea: {
+            name: "Tea & Coffee",
+            moodName: "Easy Mode",
+            subtitle: "Refresh without drama",
+            description: "Tea with coffee = the best of both worlds. A different experience.",
+            image: "capsules/tea-coffee.png",
+            profile: {
+                variety: "Blend",
+                ratio: "Arabica 70% / Robusta 30%",
+                roast: "Dark Roast",
+                origin: "Brazil + Yunnan + Uganda"
+            },
+            stats: { energy: 50, patience: 85, coffeeNeed: 35 }
+        }
+    };
 
-    // ===== STATE =====
-    let currentQuestion = 0;
-    let selectedQuestions = [];
-    let scores = {};
-    let isAnimating = false;
+    // ===== HELPER: Get current data =====
+    function getQuestionBank() {
+        return currentLang === 'ar' ? questionBankAR : questionBankEN;
+    }
+
+    function getCapsules() {
+        return currentLang === 'ar' ? capsulesAR : capsulesEN;
+    }
+
+    function getFunFacts() {
+        return funFacts[currentLang];
+    }
+
+    // ===== LANGUAGE FUNCTIONS =====
+    window.setLanguage = function(lang) {
+        currentLang = lang;
+        localStorage.setItem('hymi-lang', lang);
+
+        // Update HTML dir and lang
+        document.documentElement.lang = lang;
+        document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+        document.body.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+
+        // Update font
+        if (lang === 'en') {
+            document.body.style.fontFamily = "'Poppins', 'Tajawal', sans-serif";
+        } else {
+            document.body.style.fontFamily = "'Tajawal', 'Poppins', sans-serif";
+        }
+
+        // Apply translations
+        applyTranslations();
+
+        // Show welcome screen
+        showScreen('welcomeScreen');
+    };
+
+    function applyTranslations() {
+        const tr = translations[currentLang];
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (tr[key]) {
+                el.textContent = tr[key];
+            }
+        });
+    }
+
+    function tr(key) {
+        return translations[currentLang][key] || key;
+    }
 
     // ===== INITIALIZATION =====
     function init() {
+        // Check saved language
+        const savedLang = localStorage.getItem('hymi-lang');
+        if (savedLang && (savedLang === 'ar' || savedLang === 'en')) {
+            currentLang = savedLang;
+            document.documentElement.lang = savedLang;
+            document.documentElement.dir = savedLang === 'ar' ? 'rtl' : 'ltr';
+            document.body.setAttribute('dir', savedLang === 'ar' ? 'rtl' : 'ltr');
+            if (savedLang === 'en') {
+                document.body.style.fontFamily = "'Poppins', 'Tajawal', sans-serif";
+            }
+            applyTranslations();
+            showScreen('welcomeScreen');
+        }
+
         createParticles();
         preloadImages();
     }
 
     function preloadImages() {
-        Object.values(capsules).forEach(capsule => {
+        const caps = getCapsules();
+        Object.values(caps).forEach(capsule => {
             const img = new Image();
             img.src = capsule.image;
         });
@@ -494,8 +1087,9 @@
     // ===== QUESTION SELECTION =====
     function selectQuestions() {
         const groups = ['groupA', 'groupB', 'groupC'];
+        const bank = getQuestionBank();
         selectedQuestions = groups.map(group => {
-            const questions = questionBank[group];
+            const questions = bank[group];
             return questions[Math.floor(Math.random() * questions.length)];
         });
     }
@@ -531,7 +1125,7 @@
         // Update counter
         const counterEl = document.getElementById('questionCounter');
         if (counterEl) {
-            counterEl.innerHTML = `السؤال <span class="counter-current">${currentQuestion + 1}</span> من <span class="counter-total">3</span>`;
+            counterEl.innerHTML = `${tr('question')} <span class="counter-current">${currentQuestion + 1}</span> ${tr('of')} <span class="counter-total">3</span>`;
         }
 
         // Update progress bar
@@ -572,7 +1166,7 @@
                 const btn = document.createElement('button');
                 btn.className = 'option-btn';
                 btn.style.opacity = '0';
-                btn.style.transform = 'translateX(30px)';
+                btn.style.transform = currentLang === 'ar' ? 'translateX(30px)' : 'translateX(-30px)';
                 btn.innerHTML = `
                     <span class="option-emoji">${opt.emoji}</span>
                     <span class="option-text">${opt.text}</span>
@@ -635,24 +1229,25 @@
         showScreen('loadingScreen');
 
         const loadingMessages = [
-            { title: 'جاري تحليل المزاج', subtitle: 'نقرأ طاقتك البشرية' },
-            { title: 'نبحث عن الكبسولة المثالية', subtitle: 'نقارن بين 10 نكهات' },
-            { title: 'لقيناها!', subtitle: 'جهز نفسك للمفاجأة' }
+            { title: tr('loading1'), subtitle: tr('loadingSub1') },
+            { title: tr('loading2'), subtitle: tr('loadingSub2') },
+            { title: tr('loading3'), subtitle: tr('loadingSub3') }
         ];
 
         let msgIdx = 0;
         const titleEl = document.getElementById('loadingTitle');
         const subEl = document.getElementById('loadingSubtitle');
         const factEl = document.querySelector('.fun-fact');
+        const facts = getFunFacts();
 
         // Rotate fun facts
         let factIdx = 0;
         const factInterval = setInterval(() => {
-            factIdx = (factIdx + 1) % funFacts.length;
+            factIdx = (factIdx + 1) % facts.length;
             if (factEl) {
                 factEl.style.opacity = '0';
                 setTimeout(() => {
-                    factEl.textContent = funFacts[factIdx];
+                    factEl.textContent = facts[factIdx];
                     factEl.style.opacity = '1';
                 }, 300);
             }
@@ -679,7 +1274,7 @@
     function showResult() {
         // Calculate winner with smart logic
         const winner = calculateWinner();
-        const capsule = capsules[winner];
+        const capsule = getCapsules()[winner];
 
         // Update DOM
         const moodNameEl = document.getElementById('moodName');
@@ -757,7 +1352,6 @@
 
         // If tie, use personality diversity priority
         if (winners.length > 1) {
-            // Priority order for variety (most unique first)
             const diversityPriority = ['grape', 'orange', 'jasmine', 'ethiopian', 'dark', 'mocha', 'tea', 'latte', 'colombian', 'americano'];
 
             for (let p of diversityPriority) {
@@ -765,12 +1359,6 @@
                     return p;
                 }
             }
-        }
-
-        // Anti-bias: if dark is winning by too much, check if it's really deserved
-        if (winners[0] === 'dark' && maxScore >= 10) {
-            // Check if user also selected "mood needs" = adventure or chill
-            // This is handled by the scoring system naturally
         }
 
         return winners[0];
@@ -784,8 +1372,7 @@
 
     // ===== GO TO COUNTER =====
     window.goToCounter = function() {
-        // In real scenario, this could open maps or show location
-        alert('توجه لكاونتر HYMI وجرب كبسولتك! ☕');
+        alert(tr('goToCounter'));
     };
 
     // ===== SHARE RESULT =====
@@ -793,15 +1380,16 @@
         const moodName = document.getElementById('moodName')?.textContent || '';
         const capsuleName = document.getElementById('capsuleName')?.textContent || '';
 
-        const shareText = `اكتشفت قهوتي المثالية مع HYMI! 🎯\\n\\nمزاجي: ${moodName}\\nكبسولتي: ${capsuleName}\\n\\nجرب أنت كمان: [رابط الموقع]`;
+        const shareText = currentLang === 'ar'
+            ? `اكتشفت قهوتي المثالية مع HYMI! 🎯\n\nمزاجي: ${moodName}\nكبسولتي: ${capsuleName}\n\nجرب أنت كمان: ${window.location.href}`
+            : `I discovered my perfect coffee with HYMI! 🎯\n\nMy mood: ${moodName}\nMy capsule: ${capsuleName}\n\nTry it yourself: ${window.location.href}`;
 
         if (navigator.share) {
             navigator.share({
-                title: 'HYMI - اكتشف قهوتك',
+                title: tr('shareTitle'),
                 text: shareText,
                 url: window.location.href
             }).catch(() => {
-                // Fallback
                 copyToClipboard(shareText);
             });
         } else {
@@ -811,9 +1399,9 @@
 
     function copyToClipboard(text) {
         navigator.clipboard.writeText(text).then(() => {
-            alert('تم نسخ النتيجة! الصقها في واتساب أو أي مكان 📋');
+            alert(tr('copied'));
         }).catch(() => {
-            alert('خذ screenshot للشاشة وشاركها! 📸');
+            alert(tr('screenshot'));
         });
     }
 
