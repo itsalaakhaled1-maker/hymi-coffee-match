@@ -1431,7 +1431,6 @@
             alert(tr('screenshot'));
         });
     }
-    
 
     // ===== INIT =====
     document.addEventListener('DOMContentLoaded', init);
@@ -1502,7 +1501,7 @@
             return;
         }
 
-        // Phone validation (UAE/Saudi format)
+        // Phone validation
         const phoneRegex = /^[0-9+\-\s]{8,15}$/;
         if (!phoneRegex.test(phone)) {
             alert(currentLang === 'ar' ? 'يرجى إدخال رقم هاتف صحيح' : 'Please enter a valid phone number');
@@ -1519,34 +1518,56 @@
         const moodName = document.getElementById('moodName')?.textContent || '';
         const capsuleName = document.getElementById('capsuleName')?.textContent || '';
 
-        const formData = {
-            name: name,
-            phone: phone,
-            language: currentLang,
-            mood: moodName,
-            capsule: capsuleName,
-            timestamp: new Date().toISOString(),
-            userAgent: navigator.userAgent
-        };
+        // Build URL with query parameters (more reliable for Google Apps Script)
+        const params = new URLSearchParams();
+        params.append('name', name);
+        params.append('phone', phone);
+        params.append('language', currentLang);
+        params.append('mood', moodName);
+        params.append('capsule', capsuleName);
+        params.append('timestamp', new Date().toISOString());
+        params.append('userAgent', navigator.userAgent.substring(0, 100));
 
-        // Send to Google Sheets
-        fetch(GOOGLE_SCRIPT_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData)
+        const urlWithParams = GOOGLE_SCRIPT_URL + '?' + params.toString();
+
+        // Method 1: Try GET request with URL parameters (most reliable for GAS)
+        fetch(urlWithParams, {
+            method: 'GET',
+            mode: 'no-cors'
         }).then(() => {
-            // Success (no-cors doesn't give us response, but it worked)
-            localStorage.setItem('hymi-data-submitted', 'true');
-            showToast(tr('submitSuccess'));
-            closeDataModal();
-        }).catch(() => {
-            // Even on "error" with no-cors, it might have worked
-            localStorage.setItem('hymi-data-submitted', 'true');
-            showToast(tr('submitSuccess'));
-            closeDataModal();
+            console.log('Data sent via GET');
+            handleSubmitSuccess(submitBtn);
+        }).catch((err) => {
+            console.error('GET failed:', err);
+            // Method 2: Fallback to image pixel (always works)
+            sendViaPixel(urlWithParams, submitBtn);
         });
     };
+
+    // Fallback: Send data via image pixel (bypasses CORS completely)
+    function sendViaPixel(url, submitBtn) {
+        const img = new Image();
+        img.onload = function() {
+            console.log('Data sent via pixel');
+            handleSubmitSuccess(submitBtn);
+        };
+        img.onerror = function() {
+            // Pixel errors are normal due to no-cors, but data still sent
+            console.log('Pixel sent (error expected)');
+            handleSubmitSuccess(submitBtn);
+        };
+        img.src = url + '&pixel=' + Date.now();
+    }
+
+    function handleSubmitSuccess(submitBtn) {
+        localStorage.setItem('hymi-data-submitted', 'true');
+        showToast(tr('submitSuccess'));
+        closeDataModal();
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = tr('modalSubmit');
+        }
+    }
 
     function showToast(message) {
         const toast = document.getElementById('successToast');

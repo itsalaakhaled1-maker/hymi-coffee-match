@@ -338,5 +338,62 @@
         <span class="toast-text" id="toastText">تم التسجيل بنجاح!</span>
     </div>
 
+
+<!--
+========================================
+GOOGLE APPS SCRIPT SETUP (Copy this to your Apps Script)
+========================================
+
+function doGet(e) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+
+  try {
+    // Get parameters from URL
+    var name = e.parameter.name || '';
+    var phone = e.parameter.phone || '';
+    var language = e.parameter.language || '';
+    var mood = e.parameter.mood || '';
+    var capsule = e.parameter.capsule || '';
+    var timestamp = e.parameter.timestamp || new Date().toISOString();
+    var userAgent = e.parameter.userAgent || '';
+
+    // Append row to sheet
+    sheet.appendRow([
+      name,
+      phone,
+      language,
+      mood,
+      capsule,
+      timestamp,
+      userAgent
+    ]);
+
+    // Return success (for pixel method)
+    return ContentService.createTextOutput('OK')
+      .setMimeType(ContentService.MimeType.TEXT);
+
+  } catch (error) {
+    return ContentService.createTextOutput('ERROR: ' + error.toString())
+      .setMimeType(ContentService.MimeType.TEXT);
+  }
+}
+
+// Also keep doPost for backward compatibility
+function doPost(e) {
+  return doGet(e);
+}
+
+========================================
+SHEET HEADERS (Row 1):
+A: الاسم
+B: رقم الهاتف
+C: اللغة
+D: المزاج
+E: الكبسولة
+F: التاريخ
+G: المتصفح
+========================================
+-->
+
 </body>
 </html>
