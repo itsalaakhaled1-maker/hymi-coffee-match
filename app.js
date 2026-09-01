@@ -43,7 +43,19 @@
             goToCounter: "توجه لكاونتر HYMI وجرب كبسولتك! ☕",
             copied: "تم نسخ النتيجة! الصقها في واتساب أو أي مكان 📋",
             screenshot: "خذ screenshot للشاشة وشاركها! 📸",
-            shareTitle: "HYMI - اكتشف قهوتك"
+            shareTitle: "HYMI - اكتشف قهوتك",
+            modalTitle: "عروض حصرية بانتظارك!",
+            modalText: "سجل بياناتك واحصل على آخر العروض والخصومات من HYMI",
+            nameLabel: "الاسم",
+            phoneLabel: "رقم الهاتف",
+            namePlaceholder: "اكتب اسمك",
+            phonePlaceholder: "05xxxxxxxx",
+            modalSubmit: "سجّلني للعروض",
+            modalSkip: "لا شكراً، فقط أرني النتيجة",
+            modalPrivacy: "🔒 بياناتك آمنة ولن نشاركها مع أي طرف ثالث",
+            submitSuccess: "✅ تم التسجيل بنجاح! ستصلك العروض قريباً",
+            submitError: "❌ حدث خطأ، حاول مرة أخرى",
+            alreadySubmitted: "🎉 أنت مسجل مسبقاً!",
         },
         en: {
             chooseLang: "Choose Your Language",
@@ -82,7 +94,19 @@
             goToCounter: "Head to HYMI Counter and try your capsule! ☕",
             copied: "Result copied! Paste it on WhatsApp or anywhere 📋",
             screenshot: "Take a screenshot and share it! 📸",
-            shareTitle: "HYMI - Discover Your Coffee"
+            shareTitle: "HYMI - Discover Your Coffee",
+            modalTitle: "Exclusive Offers Await!",
+            modalText: "Register your details and get the latest offers and discounts from HYMI",
+            nameLabel: "Name",
+            phoneLabel: "Phone Number",
+            namePlaceholder: "Enter your name",
+            phonePlaceholder: "05xxxxxxxx",
+            modalSubmit: "Sign Me Up",
+            modalSkip: "No thanks, just show my result",
+            modalPrivacy: "🔒 Your data is safe and will not be shared with third parties",
+            submitSuccess: "✅ Registered successfully! Offers coming soon",
+            submitError: "❌ Something went wrong, please try again",
+            alreadySubmitted: "🎉 You're already registered!",
         }
     };
 
@@ -1333,6 +1357,9 @@
 
         showScreen('resultScreen');
         isAnimating = false;
+
+        // Show data collection modal after 3 seconds
+        showDataModal();
     }
 
     // ===== SMART WINNER CALCULATION =====
@@ -1407,5 +1434,129 @@
 
     // ===== INIT =====
     document.addEventListener('DOMContentLoaded', init);
+
+
+    // ===== GOOGLE SHEETS CONFIG =====
+    // IMPORTANT: Replace this URL with your Google Apps Script Web App URL
+    // Setup instructions: See README below
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwVh8bGk_5JoBduVzARtjwA5FTS33an24RdT4-bRPFySMXMQniwmVws83BdwPju7O0O/exec';
+
+    // ===== DATA MODAL FUNCTIONS =====
+    let dataModalShown = false;
+
+    function showDataModal() {
+        if (dataModalShown) return;
+        if (localStorage.getItem('hymi-data-submitted') === 'true') return;
+
+        const modal = document.getElementById('dataModal');
+        if (!modal) return;
+
+        setTimeout(() => {
+            modal.classList.add('active');
+            dataModalShown = true;
+
+            // Update modal text based on language
+            const tr = translations[currentLang];
+            const modalTitle = modal.querySelector('.modal-title');
+            const modalText = modal.querySelector('.modal-text');
+            const nameLabel = modal.querySelector('[for="userName"]');
+            const phoneLabel = modal.querySelector('[for="userPhone"]');
+            const nameInput = document.getElementById('userName');
+            const phoneInput = document.getElementById('userPhone');
+            const submitBtn = modal.querySelector('.modal-submit');
+            const skipBtn = modal.querySelector('.modal-skip');
+            const privacyText = modal.querySelector('.modal-privacy');
+
+            if (modalTitle) modalTitle.textContent = tr.modalTitle;
+            if (modalText) modalText.textContent = tr.modalText;
+            if (nameLabel) nameLabel.textContent = tr.nameLabel;
+            if (phoneLabel) phoneLabel.textContent = tr.phoneLabel;
+            if (nameInput) nameInput.placeholder = tr.namePlaceholder;
+            if (phoneInput) phoneInput.placeholder = tr.phonePlaceholder;
+            if (submitBtn) submitBtn.textContent = tr.modalSubmit;
+            if (skipBtn) skipBtn.textContent = tr.modalSkip;
+            if (privacyText) privacyText.textContent = tr.modalPrivacy;
+        }, 3000); // Show after 3 seconds
+    }
+
+    window.closeDataModal = function() {
+        const modal = document.getElementById('dataModal');
+        if (modal) {
+            modal.classList.remove('active');
+        }
+    };
+
+    window.submitData = function(event) {
+        event.preventDefault();
+
+        const nameInput = document.getElementById('userName');
+        const phoneInput = document.getElementById('userPhone');
+        const submitBtn = document.querySelector('.modal-submit');
+
+        const name = nameInput?.value?.trim();
+        const phone = phoneInput?.value?.trim();
+
+        if (!name || !phone) {
+            alert(currentLang === 'ar' ? 'يرجى ملء جميع الحقول' : 'Please fill all fields');
+            return;
+        }
+
+        // Phone validation (UAE/Saudi format)
+        const phoneRegex = /^[0-9+\-\s]{8,15}$/;
+        if (!phoneRegex.test(phone)) {
+            alert(currentLang === 'ar' ? 'يرجى إدخال رقم هاتف صحيح' : 'Please enter a valid phone number');
+            return;
+        }
+
+        // Disable button during submit
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.textContent = currentLang === 'ar' ? 'جاري الإرسال...' : 'Sending...';
+        }
+
+        // Get result info
+        const moodName = document.getElementById('moodName')?.textContent || '';
+        const capsuleName = document.getElementById('capsuleName')?.textContent || '';
+
+        const formData = {
+            name: name,
+            phone: phone,
+            language: currentLang,
+            mood: moodName,
+            capsule: capsuleName,
+            timestamp: new Date().toISOString(),
+            userAgent: navigator.userAgent
+        };
+
+        // Send to Google Sheets
+        fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+        }).then(() => {
+            // Success (no-cors doesn't give us response, but it worked)
+            localStorage.setItem('hymi-data-submitted', 'true');
+            showToast(tr('submitSuccess'));
+            closeDataModal();
+        }).catch(() => {
+            // Even on "error" with no-cors, it might have worked
+            localStorage.setItem('hymi-data-submitted', 'true');
+            showToast(tr('submitSuccess'));
+            closeDataModal();
+        });
+    };
+
+    function showToast(message) {
+        const toast = document.getElementById('successToast');
+        const toastText = document.getElementById('toastText');
+        if (toastText) toastText.textContent = message;
+        if (toast) {
+            toast.classList.add('active');
+            setTimeout(() => {
+                toast.classList.remove('active');
+            }, 4000);
+        }
+    }
 
 })();

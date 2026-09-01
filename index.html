@@ -303,5 +303,40 @@
     </div>
 
     <script src="app.js"></script>
+
+    <!-- ===== DATA COLLECTION MODAL ===== -->
+    <div class="modal-overlay" id="dataModal">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeDataModal()">&times;</button>
+            <div class="modal-icon">🎁</div>
+            <h3 class="modal-title" data-i18n="modalTitle">عروض حصرية بانتظارك!</h3>
+            <p class="modal-text" data-i18n="modalText">سجل بياناتك واحصل على آخر العروض والخصومات من HYMI</p>
+
+            <form class="modal-form" id="dataForm" onsubmit="submitData(event)">
+                <div class="form-group">
+                    <label class="form-label" for="userName" data-i18n="nameLabel">الاسم</label>
+                    <input type="text" id="userName" class="form-input" required 
+                           data-i18n-placeholder="namePlaceholder" placeholder="اكتب اسمك">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="userPhone" data-i18n="phoneLabel">رقم الهاتف</label>
+                    <input type="tel" id="userPhone" class="form-input" required 
+                           data-i18n-placeholder="phonePlaceholder" placeholder="05xxxxxxxx">
+                </div>
+                <button type="submit" class="modal-submit" data-i18n="modalSubmit">سجّلني للعروض</button>
+            </form>
+
+            <button class="modal-skip" onclick="closeDataModal()" data-i18n="modalSkip">لا شكراً، فقط أرني النتيجة</button>
+
+            <p class="modal-privacy" data-i18n="modalPrivacy">🔒 بياناتك آمنة ولن نشاركها مع أي طرف ثالث</p>
+        </div>
+    </div>
+
+    <!-- Success Toast -->
+    <div class="toast" id="successToast">
+        <span class="toast-icon">✅</span>
+        <span class="toast-text" id="toastText">تم التسجيل بنجاح!</span>
+    </div>
+
 </body>
 </html>
