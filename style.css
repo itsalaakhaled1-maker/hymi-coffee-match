@@ -1617,3 +1617,83 @@ body[dir="ltr"] .form-input {
 .toast-icon {
     font-size: 1.2rem;
 }
+
+/* ===== FIXED FOOTER ===== */
+.site-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: linear-gradient(180deg, rgba(245, 240, 232, 0.95) 0%, var(--cream) 100%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid var(--card-border);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 6px 16px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    box-shadow: 0 2px 8px var(--shadow);
+}
+
+.footer-link:hover {
+    color: var(--primary);
+    border-color: var(--gold);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--shadow-dark);
+}
+
+.footer-icon {
+    font-size: 0.9rem;
+}
+
+.footer-text {
+    white-space: nowrap;
+}
+
+.footer-arrow {
+    font-size: 0.75rem;
+    opacity: 0.6;
+    transition: transform 0.3s ease;
+}
+
+.footer-link:hover .footer-arrow {
+    transform: translate(2px, -2px);
+    opacity: 1;
+}
+
+/* Add bottom padding to container to prevent footer overlap */
+.container {
+    padding-bottom: 60px;
+}
+
+@media (max-width: 480px) {
+    .site-footer {
+        padding: 8px 12px;
+    }
+
+    .footer-link {
+        font-size: 0.75rem;
+        padding: 5px 12px;
+        gap: 6px;
+    }
+
+    .container {
+        padding-bottom: 50px;
+    }
+}

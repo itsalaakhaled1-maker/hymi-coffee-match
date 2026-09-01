@@ -56,6 +56,7 @@
             submitSuccess: "✅ تم التسجيل بنجاح! ستصلك العروض قريباً",
             submitError: "❌ حدث خطأ، حاول مرة أخرى",
             alreadySubmitted: "🎉 أنت مسجل مسبقاً!",
+            footerHakim: "هذا من مشاريع شركة حكيم",
         },
         en: {
             chooseLang: "Choose Your Language",
@@ -107,6 +108,7 @@
             submitSuccess: "✅ Registered successfully! Offers coming soon",
             submitError: "❌ Something went wrong, please try again",
             alreadySubmitted: "🎉 You're already registered!",
+            footerHakim: "A project by Hakim Company",
         }
     };
 
@@ -1439,7 +1441,7 @@
     // ===== GOOGLE SHEETS CONFIG =====
     // IMPORTANT: Replace this URL with your Google Apps Script Web App URL
     // Setup instructions: See README below
-    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxhZlIEJ8-pA4aab3yVJHaQXbJefeK0zVKkeXkOPPImEiEN7qeXjTdLmxQ9IG-q5CUE5w/exec';
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
 
     // ===== DATA MODAL FUNCTIONS =====
     let dataModalShown = false;
