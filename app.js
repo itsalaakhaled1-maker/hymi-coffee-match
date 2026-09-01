@@ -15,7 +15,7 @@
             feat2: "نتيجة دقيقة",
             feat3: "10 نكهات",
             startBtn: "ابدأ اللعب",
-            noData: "لا نحتاج اسمك أو رقمك 😊",
+            noData: "A New Era for Everything",
             question: "السؤال",
             of: "من",
             loading1: "جاري تحليل المزاج",
