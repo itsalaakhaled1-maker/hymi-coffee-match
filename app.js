@@ -56,7 +56,7 @@
             submitSuccess: "✅ تم التسجيل بنجاح! ستصلك العروض قريباً",
             submitError: "❌ حدث خطأ، حاول مرة أخرى",
             alreadySubmitted: "🎉 أنت مسجل مسبقاً!",
-            footerHakim: "هذا من مشاريع شركة حكيم",
+            footerHakim: "احدى مشاريع شركة حكيم",
         },
         en: {
             chooseLang: "Choose Your Language",
