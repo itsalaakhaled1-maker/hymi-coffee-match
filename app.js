@@ -1431,6 +1431,7 @@
             alert(tr('screenshot'));
         });
     }
+    
 
     // ===== INIT =====
     document.addEventListener('DOMContentLoaded', init);
@@ -1439,7 +1440,7 @@
     // ===== GOOGLE SHEETS CONFIG =====
     // IMPORTANT: Replace this URL with your Google Apps Script Web App URL
     // Setup instructions: See README below
-    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwVh8bGk_5JoBduVzARtjwA5FTS33an24RdT4-bRPFySMXMQniwmVws83BdwPju7O0O/exec';
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxhZlIEJ8-pA4aab3yVJHaQXbJefeK0zVKkeXkOPPImEiEN7qeXjTdLmxQ9IG-q5CUE5w/exec';
 
     // ===== DATA MODAL FUNCTIONS =====
     let dataModalShown = false;
