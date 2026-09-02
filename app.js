@@ -1441,7 +1441,7 @@
     // ===== GOOGLE SHEETS CONFIG =====
     // IMPORTANT: Replace this URL with your Google Apps Script Web App URL
     // Setup instructions: See README below
-    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxhZlIEJ8-pA4aab3yVJHaQXbJefeK0zVKkeXkOPPImEiEN7qeXjTdLmxQ9IG-q5CUE5w/exec';
 
     // ===== DATA MODAL FUNCTIONS =====
     let dataModalShown = false;
