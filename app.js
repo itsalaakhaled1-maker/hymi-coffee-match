@@ -1431,7 +1431,7 @@
     // IMPORTANT: Replace this with your NEW Google Apps Script Web App URL
     // (the old sheet was deleted - create a new Google Sheet + Apps Script deployment)
     // The URL ends with /exec
-    const GOOGLE_SCRIPT_URL = 'PASTE_YOUR_NEW_WEB_APP_URL_HERE';
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw9hpzwWtnD2ESxFHGJXKyekqTLgMXBIP8WHeICxtdoAbe50PAlei249988how0qj7BsQ/exec';
 
     // ===== DATA MODAL FUNCTIONS =====
     let dataModalShown = false;
