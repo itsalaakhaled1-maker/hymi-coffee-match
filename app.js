@@ -51,7 +51,7 @@
             phoneLabel: "رقم الهاتف",
             namePlaceholder: "اكتب اسمك",
             phonePlaceholder: "05xxxxxxxx",
-            modalSubmit: "سجّلني للعروض",
+            modalSubmit: "سجّل للعروض",
             modalSkip: "لا شكراً، فقط أرني النتيجة",
             modalPrivacy: "🔒 بياناتك آمنة ولن نشاركها مع أي طرف ثالث",
             submitSuccess: "✅ تم التسجيل بنجاح! ستصلك العروض قريباً",
