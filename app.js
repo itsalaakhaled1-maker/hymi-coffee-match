@@ -1,5 +1,6 @@
 // ===== HYMI Coffee Match - Mood Engine (Bilingual) =====
 // 30 Questions | 3 Groups | 10 Capsules | Smart Scoring | AR/EN
+// UPDATED: No localStorage / no cache - language chosen every visit
 
 (function() {
     'use strict';
@@ -1021,7 +1022,7 @@
     // ===== LANGUAGE FUNCTIONS =====
     window.setLanguage = function(lang) {
         currentLang = lang;
-        localStorage.setItem('hymi-lang', lang);
+        // NOTE: language is NOT saved - user must choose every visit (no localStorage)
 
         // Update HTML dir and lang
         document.documentElement.lang = lang;
@@ -1058,20 +1059,8 @@
 
     // ===== INITIALIZATION =====
     function init() {
-        // Check saved language
-        const savedLang = localStorage.getItem('hymi-lang');
-        if (savedLang && (savedLang === 'ar' || savedLang === 'en')) {
-            currentLang = savedLang;
-            document.documentElement.lang = savedLang;
-            document.documentElement.dir = savedLang === 'ar' ? 'rtl' : 'ltr';
-            document.body.setAttribute('dir', savedLang === 'ar' ? 'rtl' : 'ltr');
-            if (savedLang === 'en') {
-                document.body.style.fontFamily = "'Poppins', 'Tajawal', sans-serif";
-            }
-            applyTranslations();
-            showScreen('welcomeScreen');
-        }
-
+        // UPDATED: No saved language check - always show language selector screen
+        // (the languageScreen is the default .active screen in the HTML)
         createParticles();
         preloadImages();
     }
@@ -1439,16 +1428,18 @@
 
 
     // ===== GOOGLE SHEETS CONFIG =====
-    // IMPORTANT: Replace this URL with your Google Apps Script Web App URL
-    // Setup instructions: See README below
-    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxhZlIEJ8-pA4aab3yVJHaQXbJefeK0zVKkeXkOPPImEiEN7qeXjTdLmxQ9IG-q5CUE5w/exec';
+    // IMPORTANT: Replace this with your NEW Google Apps Script Web App URL
+    // (the old sheet was deleted - create a new Google Sheet + Apps Script deployment)
+    // The URL ends with /exec
+    const GOOGLE_SCRIPT_URL = 'PASTE_YOUR_NEW_WEB_APP_URL_HERE';
 
     // ===== DATA MODAL FUNCTIONS =====
     let dataModalShown = false;
 
     function showDataModal() {
         if (dataModalShown) return;
-        if (localStorage.getItem('hymi-data-submitted') === 'true') return;
+        // UPDATED: removed localStorage 'hymi-data-submitted' check
+        // so the form shows on every play session
 
         const modal = document.getElementById('dataModal');
         if (!modal) return;
@@ -1562,7 +1553,7 @@
     }
 
     function handleSubmitSuccess(submitBtn) {
-        localStorage.setItem('hymi-data-submitted', 'true');
+        // UPDATED: removed localStorage 'hymi-data-submitted' save
         showToast(tr('submitSuccess'));
         closeDataModal();
         if (submitBtn) {
